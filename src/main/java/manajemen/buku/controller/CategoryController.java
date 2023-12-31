@@ -7,9 +7,12 @@ import manajemen.buku.Responses.WebResponse;
 import manajemen.buku.services.KategoriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -27,5 +30,14 @@ public class CategoryController {
         KategoriResponse res = kategoriService.store(request);
         log.info("masuk store kategori setelah store service : {}", request);
         return WebResponse.<KategoriResponse>builder().data(res).build();
+    }
+
+    @GetMapping(
+            path = "/api/kategori",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<List<KategoriResponse>> get(){
+        List<KategoriResponse> res = kategoriService.getAll();
+        return WebResponse.<List<KategoriResponse>>builder().data(res).build();
     }
 }

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -35,5 +37,16 @@ public class KategoriService {
                 .nama_kategori(kategori.getKategoriNama())
                 .createdat_kategori(kategori.getKategoriCreatedAt())
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public List<KategoriResponse> getAll(){
+        List<Category> data_kategori = categoryRepository.findAll();
+        List<KategoriResponse> response_service = data_kategori
+                .stream()
+                .map(this::api_response)
+                .collect(Collectors.toList());
+
+        return response_service;
     }
 }
