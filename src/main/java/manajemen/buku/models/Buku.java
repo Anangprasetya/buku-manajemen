@@ -10,39 +10,39 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "bukus", uniqueConstraints = {@UniqueConstraint(columnNames = "BukuKode")})
+@Table(name = "bukus", uniqueConstraints = {@UniqueConstraint(columnNames = "bukuKode")})
 public class Buku {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BukuId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long bukuId;
 
-    private String BukuNama;
+    private String bukuNama;
 
-    private String BukuPenulis;
+    private String bukuPenulis;
 
     @Column(unique = true)
-    private String BukuKode;
+    private String bukuKode;
 
-    private Integer BukuTahunTerbit;
+    private Integer bukuTahunTerbit;
 
     @ManyToOne
-    @JoinColumn(name = "BukuKategoriId", referencedColumnName = "KategoriId")
-    private Category BukuKategoriId;
+    @JoinColumn(name = "bukuKategoriId", referencedColumnName = "kategoriId")
+    private Category bukuKategoriId;
 
     @Column(columnDefinition = "TINYINT(1)")
-    private Boolean BukuStatusPublish;
+    private Boolean bukuStatusPublish;
 
-    private LocalDateTime BukuCreatedAt;
+    private LocalDateTime bukuCreatedAt;
 
-    private LocalDateTime BukuUpdatedAt;
+    private LocalDateTime bukuUpdatedAt;
 
     @PrePersist
     protected void onCreate(){
-        this.BukuCreatedAt = LocalDateTime.now();
+        this.bukuCreatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.BukuUpdatedAt = LocalDateTime.now();
+        this.bukuUpdatedAt = LocalDateTime.now();
     }
 }

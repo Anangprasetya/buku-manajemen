@@ -13,29 +13,30 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "kategoris", uniqueConstraints = {@UniqueConstraint(columnNames = "KategoriKode")})
+@Table(name = "kategoris", uniqueConstraints = {@UniqueConstraint(columnNames = "kategoriKode")})
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long KategoriId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "kategoriId")
+    private Long kategoriId;
 
-    @Column(unique = true)
-    private String KategoriKode;
+    @Column(unique = true, name = "kategoriKode")
+    private String kategoriKode;
 
-    private String KategoriNama;
+    private String kategoriNama;
 
-    private LocalDateTime KategoriCreatedAt;
+    private LocalDateTime kategoriCreatedAt;
 
-    private LocalDateTime KategoriUpdatedAt;
+    private LocalDateTime kategoriUpdatedAt;
 
     @PrePersist
     protected void onCreate(){
-        this.KategoriCreatedAt = LocalDateTime.now();
+        this.kategoriCreatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.KategoriUpdatedAt = LocalDateTime.now();
+        this.kategoriUpdatedAt = LocalDateTime.now();
     }
 
 }

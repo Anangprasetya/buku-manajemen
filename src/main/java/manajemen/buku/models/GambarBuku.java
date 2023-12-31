@@ -16,26 +16,26 @@ import java.time.LocalDateTime;
 @Table(name = "gambar_bukus")
 public class GambarBuku {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long GambarBukuId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long gambarbukuId;
 
     @ManyToOne
-    @JoinColumn(name = "GambarBukuBukuId", referencedColumnName = "BukuId")
-    private Buku GambarBukuBukuId;
+    @JoinColumn(name = "gambarbukuBukuId", referencedColumnName = "bukuId")
+    private Buku gambarbukuBukuId;
 
-    private String GambarBukuUrlGambar;
+    private String gambarbukuUrlGambar;
 
-    private LocalDateTime GambarBukuCreatedAt;
+    private LocalDateTime gambarbukuCreatedAt;
 
-    private LocalDateTime GambarBukuUpdatedAt;
+    private LocalDateTime gambarbukuUpdatedAt;
 
     @PrePersist
     protected void onCreate(){
-        this.GambarBukuCreatedAt = LocalDateTime.now();
+        this.gambarbukuCreatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.GambarBukuUpdatedAt = LocalDateTime.now();
+        this.gambarbukuUpdatedAt = LocalDateTime.now();
     }
 }

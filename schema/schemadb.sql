@@ -1,48 +1,48 @@
 
 CREATE TABLE kategoris (
-    KategoriId bigint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    KategoriKode VARCHAR(200) NOT NULL,
-    KategoriNama VARCHAR(200) NOT NULL,
-    KategoriCreatedAt TIMESTAMP NULL DEFAULT NULL,
-    KategoriUpdatedAt TIMESTAMP NULL DEFAULT NULL
+    kategoriId bigint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    kategoriKode VARCHAR(200) NOT NULL,
+    kategoriNama VARCHAR(200) NOT NULL,
+    kategoriCreatedAt TIMESTAMP NULL DEFAULT NULL,
+    kategoriUpdatedAt TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE bukus (
-    BukuId bigint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    BukuNama VARCHAR(200) NOT NULL,
-    BukuPenulis VARCHAR(200) NOT NULL,
-    BukuKode VARCHAR(200) NOT NULL,
-    BukuTahunTerbit INT NOT NULL,
-    BukuKategoriId BIGINT UNSIGNED NOT NULL,
-    BukuStatusPublish TINYINT(1) NOT NULL COMMENT 'True publish buku, False no publish (draff buku)',
-    BukuCreatedAt TIMESTAMP NULL DEFAULT NULL,
-    BukuUpdatedAt TIMESTAMP NULL DEFAULT NULL
+    bukuId bigint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    bukuNama VARCHAR(200) NOT NULL,
+    bukuPenulis VARCHAR(200) NOT NULL,
+    bukuKode VARCHAR(200) NOT NULL,
+    bukuTahunTerbit INT NOT NULL,
+    bukuKategoriId BIGINT UNSIGNED NOT NULL,
+    bukuStatusPublish TINYINT(1) NOT NULL COMMENT 'True publish buku, False no publish (draff buku)',
+    bukuCreatedAt TIMESTAMP NULL DEFAULT NULL,
+    bukuUpdatedAt TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE gambar_bukus (
-    GambarBukuId bigint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    GambarBukuBukuId BIGINT UNSIGNED NOT NULL,
-    GambarBukuUrlGambar VARCHAR(400) NOT NULL,
-    GambarBukuCreatedAt TIMESTAMP NULL DEFAULT NULL,
-    GambarBukuUpdatedAt TIMESTAMP NULL DEFAULT NULL
+    gambarbukuId bigint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    gambarbukuBukuId BIGINT UNSIGNED NOT NULL,
+    gambarbukuUrlGambar VARCHAR(400) NOT NULL,
+    gambarbukuCreatedAt TIMESTAMP NULL DEFAULT NULL,
+    gambarbukuUpdatedAt TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 ALTER TABLE kategoris
-    ADD UNIQUE KEY kategoris_kategorikode_unique (KategoriKode);
+    ADD UNIQUE KEY kategoris_kategorikode_unique (kategoriKode);
 
 ALTER TABLE bukus
-    ADD UNIQUE KEY bukus_bukukode_unique (BukuKode),
-    ADD KEY bukus_bukukategoriid_foreign (BukuKategoriId);
+    ADD UNIQUE KEY bukus_bukukode_unique (bukuKode),
+    ADD KEY bukus_bukukategoriid_foreign (bukuKategoriId);
 
 ALTER TABLE gambar_bukus
-    ADD KEY gambar_bukus_gambarbukubukuid_foreign (GambarBukuBukuId);
+    ADD KEY gambar_bukus_gambarbukubukuid_foreign (gambarbukuBukuId);
 
 
 
 
 ALTER TABLE bukus
-    ADD CONSTRAINT bukus_bukukategoriid_foreign FOREIGN KEY (BukuKategoriId) REFERENCES kategoris (KategoriId);
+    ADD CONSTRAINT bukus_bukukategoriid_foreign FOREIGN KEY (bukuKategoriId) REFERENCES kategoris (kategoriId);
 
 ALTER TABLE gambar_bukus
-    ADD CONSTRAINT gambar_bukus_gambarbukubukuid_foreign FOREIGN KEY (GambarBukuBukuId) REFERENCES bukus (BukuId);
+    ADD CONSTRAINT gambar_bukus_gambarbukubukuid_foreign FOREIGN KEY (gambarbukuBukuId) REFERENCES bukus (bukuId);
