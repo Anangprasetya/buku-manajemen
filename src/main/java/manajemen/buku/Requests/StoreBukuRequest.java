@@ -25,5 +25,5 @@ public class StoreBukuRequest {
 
 //    @JsonIgnore
     @NotBlank
-    private Long bukuKategoriId;
+    private String bukuKategoriKode;
 }

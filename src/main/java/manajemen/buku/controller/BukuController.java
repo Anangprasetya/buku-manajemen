@@ -26,9 +26,9 @@ public class BukuController {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public WebResponse<BukuResponse> store(@RequestBody StoreBukuRequest request){
-        log.info("masuk controller store {}", request);
+//        log.info("masuk controller store : [ {} ]", request);
         BukuResponse bukuresponse = bukuService.store(request);
-        log.info("berhasil controller store");
+//        log.info("berhasil controller store");
         return WebResponse.<BukuResponse>builder().data(bukuresponse).build();
     }
 

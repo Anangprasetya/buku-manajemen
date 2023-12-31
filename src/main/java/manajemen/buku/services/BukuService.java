@@ -27,25 +27,20 @@ public class BukuService {
     @Transactional
     public BukuResponse store(StoreBukuRequest request) {
 
-//        log.info("masuk service store", request);
-//        Category kategori = categoryRepository
-//                .findBykategoriId(request.getBukuKategoriId())
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Kategori yang dipilih tidak ditemukan"));
-//
-//        log.info("service store ambil kategori");
-//        Buku bukumodel = new Buku();
-//        bukumodel.setBukuNama(request.getBukuNama());
-//        bukumodel.setBukuPenulis(request.getBukuPenulis());
-//        bukumodel.setBukuKode(UUID.randomUUID().toString());
-//        bukumodel.setBukuTahunTerbit(request.getBukuTahunTerbit());
-//        bukumodel.setBukuKategoriId(kategori);
-//        bukumodel.setBukuStatusPublish(false);
-//
-//        bukuRepository.save(bukumodel);
+        Category kategori = categoryRepository
+                .findByKategoriKode(request.getBukuKategoriKode())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Kategori yang dipilih tidak ditemukan"));
 
-//        return api_response(bukumodel);
+        Buku bukumodel = new Buku();
+        bukumodel.setBukuNama(request.getBukuNama());
+        bukumodel.setBukuPenulis(request.getBukuPenulis());
+        bukumodel.setBukuKode(UUID.randomUUID().toString());
+        bukumodel.setBukuTahunTerbit(request.getBukuTahunTerbit());
+        bukumodel.setBukuKategoriId(kategori);
+        bukumodel.setBukuStatusPublish(false);
 
-        return api_response(new Buku());
+        bukuRepository.save(bukumodel);
+        return api_response(bukumodel);
     }
 
     private BukuResponse api_response(Buku buku){
