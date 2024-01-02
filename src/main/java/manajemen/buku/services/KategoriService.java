@@ -1,6 +1,7 @@
 package manajemen.buku.services;
 
 import lombok.extern.slf4j.Slf4j;
+import manajemen.buku.Requests.DestroyKategoriRequest;
 import manajemen.buku.Requests.StoreKategoriRequest;
 import manajemen.buku.Requests.UpdateKategoriRequest;
 import manajemen.buku.Responses.KategoriResponse;
@@ -63,5 +64,13 @@ public class KategoriService {
         categoryRepository.save(kategori);
 
         return api_response(kategori);
+    }
+
+    @Transactional
+    public void destroy(DestroyKategoriRequest request){
+        Category kategori = categoryRepository.findByKategoriKode(request.getKategori_kode())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Kategori belum dipilih"));
+
+        categoryRepository.delete(kategori);
     }
 }

@@ -1,6 +1,7 @@
 package manajemen.buku.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import manajemen.buku.Requests.DestroyKategoriRequest;
 import manajemen.buku.Requests.StoreKategoriRequest;
 import manajemen.buku.Requests.UpdateKategoriRequest;
 import manajemen.buku.Responses.KategoriResponse;
@@ -54,5 +55,8 @@ public class CategoryController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<KategoriResponse> delete(@RequestBody)
+    public WebResponse<String> delete(@RequestBody DestroyKategoriRequest request){
+        kategoriService.destroy(request);
+        return WebResponse.<String>builder().data("Data kategori berhasil dihapus").build();
+    }
 }
