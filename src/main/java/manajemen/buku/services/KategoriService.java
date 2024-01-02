@@ -2,12 +2,16 @@ package manajemen.buku.services;
 
 import lombok.extern.slf4j.Slf4j;
 import manajemen.buku.Requests.StoreKategoriRequest;
+import manajemen.buku.Requests.UpdateKategoriRequest;
 import manajemen.buku.Responses.KategoriResponse;
 import manajemen.buku.models.Category;
 import manajemen.buku.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,5 +52,16 @@ public class KategoriService {
                 .collect(Collectors.toList());
 
         return response_service;
+    }
+
+    @Transactional
+    public KategoriResponse update(UpdateKategoriRequest request){
+        Category kategori = categoryRepository.findByKategoriKode(request.getKategori_kode())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Kategori belum dipilih"));
+
+        kategori.setKategoriNama(request.getKategori_nama());
+        categoryRepository.save(kategori);
+
+        return api_response(kategori);
     }
 }
